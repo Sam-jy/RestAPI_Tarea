@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">UTHRestAPI250</string>
+    <string name="lista_contactos">Lista de contactos</string>
+    <string name="agregar_contacto">Agregar contacto</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="volver">Volver</string>
+    <string name="tomar_foto">Tomar Foto</string>
+    <string name="confirmar_eliminar">¿Estás seguro de que quieres eliminar este contacto?</string>
+    <string name="si">Sí</string>
+    <string name="no">No</string>
+</resources>
