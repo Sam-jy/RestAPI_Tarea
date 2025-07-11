@@ -41,14 +41,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mobilephone" />
+        app:srcCompat="@android:mipmap/sym_def_app_icon" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="ListContac"
+        android:text="Telefono"
         android:textColorLink="#121111"
         android:textSize="44sp"
         android:textStyle="bold"

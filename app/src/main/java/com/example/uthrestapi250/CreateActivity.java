@@ -45,6 +45,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import android.media.ExifInterface;
+import android.graphics.Matrix;
+import java.io.FileInputStream;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -173,15 +176,41 @@ public class CreateActivity extends AppCompatActivity {
         if (path == null || path.isEmpty()) {
             return "";
         }
-        
         try {
             Bitmap bitmap = BitmapFactory.decodeFile(path);
             if (bitmap == null) {
                 return "";
             }
-            
+            // Corregir orientación usando ExifInterface
+            int orientation = 0;
+            try {
+                ExifInterface exif = new ExifInterface(path);
+                orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                switch (orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        bitmap = rotateBitmap(bitmap, 90);
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        bitmap = rotateBitmap(bitmap, 180);
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        bitmap = rotateBitmap(bitmap, 270);
+                        break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // Redimensionar la imagen para que encaje en un cuadrado de 500x500 manteniendo proporción
+            int targetSize = 500;
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            float scale = Math.min((float)targetSize / width, (float)targetSize / height);
+            int newWidth = Math.round(width * scale);
+            int newHeight = Math.round(height * scale);
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true);
+
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
             byte[] imageArray = byteArrayOutputStream.toByteArray();
 
             return Base64.encodeToString(imageArray, Base64.DEFAULT);
@@ -189,6 +218,12 @@ public class CreateActivity extends AppCompatActivity {
             e.printStackTrace();
             return "";
         }
+    }
+
+    private Bitmap rotateBitmap(Bitmap bitmap, int degrees) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degrees);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     private void PermisosCamara()

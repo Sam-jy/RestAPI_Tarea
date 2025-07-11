@@ -3,7 +3,7 @@ package com.example.uthrestapi250.Config;
 public class RestApiMethods {
 
     // URL base del backend PHP
-    public static final String BASE_URL = "http://localhost/crud-php-person/";
+    public static final String BASE_URL = "http://192.168.100.7/crud-php-person/";
 
     // Endpoints del CRUD
     public static final String EndpointGetPersons   = BASE_URL + "GetPersons.php";

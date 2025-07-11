@@ -27,10 +27,10 @@
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:src="@drawable/mobilephone"
-        android:backgroundTint="#4CAF50" />
+        android:backgroundTint="#4CAF50"
+        android:src="@android:drawable/ic_input_add" />
 
 </RelativeLayout>
